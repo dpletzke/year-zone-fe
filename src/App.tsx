@@ -24,6 +24,8 @@ const App = () => {
   const [homeTimeZone, setHomeTimeZone] = useState<Timezone | null>(null);
   const [workTimeZone, setWorkTimeZone] = useState<Timezone | null>(null);
 
+  console.log(process.env)
+
   const reverseTimeZones = () => {
     setHomeCity(workCity);
     setWorkCity(homeCity);
