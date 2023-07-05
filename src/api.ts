@@ -7,7 +7,7 @@ type configArgs = {
   params?: { [key: string]: any };
 };
 const hostUrl = process.env.REACT_APP_API_HOST || "http://localhost:3007";
-
+console.log(process.env);
 export const sendReq = async <T>(
   method: "GET" | "POST" | "PUT" | "DELETE",
   { url = "", payload, accessToken = "", params = {} }: configArgs
