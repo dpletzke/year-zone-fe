@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# Year Zone Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the frontend React app for the Year Zone project. It allows users to visualize the time difference between two cities over the course of a year. 
 
-## Available Scripts
+The frontend uses [Create React App](https://create-react-app.dev/) and is hosted on Netlify at https://main--strong-capybara-cc1a4c.netlify.app/.
 
-In the project directory, you can run:
+It interfaces with the [Year Zone Backend API](https://github.com/dpletzke/year-zone-be) hosted on Render at https://year-zone-be.onrender.com.
 
-### `yarn start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Select two cities using Google Places autocomplete
+- See time difference between cities visualized on a calendar view 
+- Calendar colors indicate time offsets with legend
+- Swap cities button
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Architecture
 
-### `yarn test`
+The frontend is built with:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- React
+- TypeScript
+- Material UI
+- Emotion for styling
+- React Yearly Calendar
+- Moment Timezone
 
-### `yarn build`
+It calls the Year Zone Backend API endpoints to get timezone data for selected cities. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The main `App` component handles state and data flow. `LocationSelector`, `CalendarContainer`, and other presentational components display the UI.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Running Locally
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run the app locally:
 
-### `yarn eject`
+1. Clone the repo
+2. Run `npm install`
+3. Create a `.env` file with a Google Maps API key  
+4. Run `npm start`
+5. Open http://localhost:3000
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Deployment
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The frontend is deployed on Netlify, configured to automatically deploy the `main` branch.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Let me know if any sections need to be expanded or clarified!
