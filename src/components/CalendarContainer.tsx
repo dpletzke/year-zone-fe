@@ -52,7 +52,7 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
   const { ranges, homeTimezone } = props;
   const classOffsetMap = getClassOffsetMap(ranges);
   const colorClasses = defineColorClasses(classOffsetMap, homeTimezone, ranges);
-  console.log("colorClasses", colorClasses);
+  
   const customClasses = useCallback(
     (day: Moment) => {
       const [className] =
@@ -61,9 +61,7 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
             return day.isSame(descrip, "day");
           } else if (Array.isArray(descrip) && moment.isMoment(descrip[0])) {
             assertType<Moment[]>(descrip);
-            // const found = descrip.find((d) => day.isSame(d, "day"));
-            // console.log(descrip[0].toDate(), day.toDate());
-            // if (found) console.log(found);
+
             return descrip.some((d) => day.isSame(d, "day"));
           } else if (Array.isArray(descrip)) {
             assertType<{ start: Moment; end: Moment }[]>(descrip);
@@ -73,7 +71,6 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
           }
           return false;
         }) || [];
-      // console.log(className);
       return className || "";
     },
     [colorClasses]

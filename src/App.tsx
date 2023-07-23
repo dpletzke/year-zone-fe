@@ -24,8 +24,6 @@ const App = () => {
   const [homeTimeZone, setHomeTimeZone] = useState<Timezone | null>(null);
   const [workTimeZone, setWorkTimeZone] = useState<Timezone | null>(null);
 
-  console.log(process.env)
-
   const reverseTimeZones = () => {
     setHomeCity(workCity);
     setWorkCity(homeCity);
@@ -69,19 +67,21 @@ const App = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
             p: 2,
             fontFamily: "courier",
           }}
         >
-          timezone calculator
-          <Box>
+          {ranges && <span>time difference calculator</span>}
+          <Box sx={{ marginLeft: "auto" }}>
             made with ♥️ by <a href="https://github.com/dpletzke">dpletzke</a>
           </Box>
         </Box>
       </AppBar>
       <AppContainer>
+        {!ranges && (
+          <Box sx={{ fontFamily: "courier", fontSize:'2em' }}>🌍 time difference calculator 🏢</Box>
+        )}
         <Box
           display="flex"
           alignItems="center"
@@ -113,7 +113,7 @@ const App = () => {
             selectCity={selectCity("WORK")}
             categories={["locality", "administrative_area_level_3"]}
             handleLocation={handleLocation("WORK")}
-            placeholderText="City where your work is based"
+            placeholderText="City where you are calling"
             customProps={{ sx: selectorStyle }}
           />
         </Box>
