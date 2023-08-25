@@ -77,7 +77,7 @@ export const LocationSelector = (props: LocationSelectorProps) => {
 
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
-      const url = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&libraries=places`;
+      const url = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&libraries=places`;
       loadScript(url, document.querySelector("head"), "google-maps");
     }
     loaded.current = true;
