@@ -89,7 +89,9 @@ const App = () => {
             fontFamily: "courier",
           }}
         >
-          {ranges && <span>time difference calculator</span>}
+          {[DISPLAY, LOADING].includes(status) && (
+            <span>🌍 time difference calculator 🗓️</span>
+          )}
           <Box sx={{ marginLeft: "auto" }}>
             made with ♥️ by <a href="https://github.com/dpletzke">dpletzke</a>
           </Box>
