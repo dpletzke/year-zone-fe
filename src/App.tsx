@@ -96,7 +96,7 @@ const App = () => {
         </Box>
       </AppBar>
       <AppContainer>
-        {!ranges && (
+        {status === INITIAL_STATUS && (
           <Box sx={{ fontFamily: "courier", fontSize: "2em" }}>
             🌍 time difference calculator 🗓️
           </Box>
