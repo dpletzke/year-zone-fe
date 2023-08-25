@@ -42,3 +42,5 @@ export const pluralize = (count: number | undefined, word: string) => {
   if (count === undefined) return "";
   return `${count} ${count === 1 ? word : `${word}s`}`;
 };
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));

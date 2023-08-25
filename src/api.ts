@@ -1,3 +1,4 @@
+import { sleep } from "./helpers/util";
 import { Timezone } from "./types";
 
 type configArgs = {
@@ -42,6 +43,7 @@ export const sendReq = async <T>(
     config.headers.Authorization = "Bearer " + accessToken; // body data type must match "Content-Type" header
   }
   const response = await fetch(urlInst.toString(), config);
+  await sleep(2000);
   return response
     .json()
     .then((data) => ({ code: response.status, body: data }));
