@@ -19,7 +19,7 @@ const AppContainer = styled.div`
 
 const INITIAL_STATUS = "INITIAL_STATUS";
 const LOADING = "LOADING";
-const ERROR = "ERROR";
+// const ERROR = "ERROR";
 const DISPLAY = "DISPLAY";
 
 const App = () => {
