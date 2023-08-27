@@ -1,8 +1,8 @@
+import moment, { Moment } from "moment-timezone";
 import { Calendar } from "react-yearly-calendar";
 import { TzDate } from "../types";
 import "../style.css";
-import { defineColorClasses, getClassOffsetMap } from "../helpers/colorUtil";
-import moment, { Moment } from "moment-timezone";
+import { defineColorClasses, getClassOffsetMap } from "../helpers/colorUtils";
 import { assertType } from "../helpers/util";
 import { useCallback } from "react";
 

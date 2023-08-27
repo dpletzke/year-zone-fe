@@ -1,11 +1,12 @@
+import { describe, expect } from "vitest";
 import moment from "moment-timezone";
-import { findRanges } from "./helpers/findRanges";
-import { chicago, auckland, ljubljana, bangkok, bogota } from "./fixtures";
+import { findRanges } from "./findRanges";
+import { chicago, auckland, ljubljana, bangkok, bogota } from "../fixtures";
 import {
   defineColorClasses,
   getClassOffsetMap,
   ClassRange,
-} from "./helpers/colorUtil";
+} from "./colorUtils";
 
 const bangStd = bangkok.standardUtcOffset.seconds / 60 / 60;
 const bogoStd = bogota.standardUtcOffset.seconds / 60 / 60;
@@ -30,7 +31,7 @@ const convertColorsClassesToDateForTesting = (colorClasses: ClassRange) => {
   }, {} as { [key: string]: any });
 };
 
-test("with bangkok and bogota", () => {
+describe("with bangkok and bogota", () => {
   const zonify = makeMoment(bangkok.timeZone);
   const standardOffset = bangStd - bogoStd;
 
@@ -51,7 +52,7 @@ test("with bangkok and bogota", () => {
   });
 });
 
-test("color classes can take auckland and bogota", () => {
+describe("color classes can take auckland and bogota", () => {
   const zonify = makeMoment(auckland.timeZone);
   const ranges = findRanges(auckland, bogota);
   const classOffsetMap = getClassOffsetMap(ranges);
@@ -82,7 +83,7 @@ test("color classes can take auckland and bogota", () => {
   });
 });
 
-// test("findRanges can take chicago and auckland", () => {
+// describe("findRanges can take chicago and auckland", () => {
 //   const ranges = findRanges(chicago, auckland);
 
 //   const classOffsetMap = getClassOffsetMap(ranges);
@@ -102,7 +103,7 @@ test("color classes can take auckland and bogota", () => {
 // ]);
 // });
 
-// test("findRanges can take auckland and chicago", () => {
+// describe("findRanges can take auckland and chicago", () => {
 //   const zonify = makeMoment(chicago.timeZone);
 //   const dates = findRanges(auckland, chicago);
 
@@ -125,7 +126,7 @@ test("color classes can take auckland and bogota", () => {
 //   ]);
 // });
 
-// test("findRanges can take chicago and ljubljana", () => {
+// describe("findRanges can take chicago and ljubljana", () => {
 //   const zonify = makeMoment(ljubljana.timeZone);
 //   const dates = findRanges(chicago, ljubljana);
 
@@ -148,7 +149,7 @@ test("color classes can take auckland and bogota", () => {
 //   ]);
 // });
 
-// test("findRanges can take bangkok and bogota", () => {
+// describe("findRanges can take bangkok and bogota", () => {
 //   const dates = findRanges(bangkok, bogota);
 
 //   const bangStd = bangkok.standardUtcOffset.seconds / 60 / 60;
@@ -161,7 +162,7 @@ test("color classes can take auckland and bogota", () => {
 //   ]);
 // });
 
-// test("findRanges can take chicago and bogota", () => {
+// describe("findRanges can take chicago and bogota", () => {
 //   const zonify = makeMoment(bogota.timeZone);
 //   const dates = findRanges(chicago, bogota);
 
@@ -180,7 +181,7 @@ test("color classes can take auckland and bogota", () => {
 //   ]);
 // });
 
-// test("findRanges can take auckland and bogota", () => {
+// describe("findRanges can take auckland and bogota", () => {
 //   const zonify = makeMoment(bogota.timeZone);
 //   const dates = findRanges(auckland, bogota);
 
@@ -200,7 +201,7 @@ test("color classes can take auckland and bogota", () => {
 //   ]);
 // });
 
-// test("findRanges can take bogota and auckland", () => {
+// describe("findRanges can take bogota and auckland", () => {
 //   const zonify = makeMoment(auckland.timeZone);
 //   const dates = findRanges(bogota, auckland);
 

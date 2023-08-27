@@ -1,7 +1,8 @@
 import moment from "moment-timezone";
-import { findRanges } from "./helpers/findRanges";
-import { chicago, auckland, ljubljana, bangkok, bogota } from "./fixtures";
-import { TzDate } from "./types";
+import { describe, expect } from "vitest";
+import { findRanges } from "./findRanges";
+import { chicago, auckland, ljubljana, bangkok, bogota } from "../fixtures";
+import { TzDate } from "../types";
 
 const zonifyByTimeZone = (timezone: string) => (date: string) => {
   return moment.tz(date, timezone).toString();
@@ -17,7 +18,7 @@ const convertRangesToDateForTesting = (ranges: TzDate[]) => {
   }));
 };
 
-test("testing function can zonify", () => {
+describe("testing function can zonify", () => {
   const zonify = zonifyByTimeZone("Pacific/Auckland");
   // TODO: could this test be more robust?
   // could there be an issue with dst
@@ -26,7 +27,7 @@ test("testing function can zonify", () => {
   );
 });
 
-test("testing function can convert ranges to date for testing", () => {
+describe("testing function can convert ranges to date for testing", () => {
   const convertedRanges = convertRangesToDateForTesting([
     {
       offset: 13,
@@ -41,7 +42,7 @@ test("testing function can convert ranges to date for testing", () => {
     },
   ]);
 });
-test.only("findRanges can take chicago and bogota", () => {
+describe.only("findRanges can take chicago and bogota", () => {
   const zonify = zonifyByTimeZone(bogota.timeZone);
   const dates = findRanges(chicago, bogota);
 
@@ -61,7 +62,7 @@ test.only("findRanges can take chicago and bogota", () => {
 });
 
 /*
-test("findRanges can take chicago and auckland", () => {
+describe("findRanges can take chicago and auckland", () => {
   const zonify = zonifyByTimeZone(auckland.timeZone);
   const dates = findRanges(chicago, auckland);
 
@@ -84,7 +85,7 @@ test("findRanges can take chicago and auckland", () => {
   ]);
 });
 
-test("findRanges can take auckland and chicago", () => {
+describe("findRanges can take auckland and chicago", () => {
   const zonify = zonifyByTimeZone(chicago.timeZone);
   const dates = findRanges(auckland, chicago);
 
@@ -107,7 +108,7 @@ test("findRanges can take auckland and chicago", () => {
   ]);
 });
 
-test("findRanges can take chicago and ljubljana", () => {
+describe("findRanges can take chicago and ljubljana", () => {
   const zonify = zonifyByTimeZone(ljubljana.timeZone);
   const dates = findRanges(chicago, ljubljana);
 
@@ -130,7 +131,7 @@ test("findRanges can take chicago and ljubljana", () => {
   ]);
 });
 
-test("findRanges can take bangkok and bogota", () => {
+describe("findRanges can take bangkok and bogota", () => {
   const dates = findRanges(bangkok, bogota);
 
   const bangStd = bangkok.standardUtcOffset.seconds / 60 / 60;
@@ -143,7 +144,7 @@ test("findRanges can take bangkok and bogota", () => {
   ]);
 });
 
-test("findRanges can take auckland and bogota", () => {
+describe("findRanges can take auckland and bogota", () => {
   const zonify = zonifyByTimeZone(bogota.timeZone);
   const dates = findRanges(auckland, bogota);
 
@@ -163,7 +164,7 @@ test("findRanges can take auckland and bogota", () => {
   ]);
 });
 
-test("findRanges can take bogota and auckland", () => {
+describe("findRanges can take bogota and auckland", () => {
   const zonify = zonifyByTimeZone(auckland.timeZone);
   const dates = findRanges(bogota, auckland);
 
