@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import * as React from "react";
+import { Loader } from "@googlemaps/js-api-loader";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -77,8 +78,11 @@ export const LocationSelector = (props: LocationSelectorProps) => {
 
   if (typeof window !== "undefined" && !loaded.current) {
     if (!document.querySelector("#google-maps")) {
-      const url = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}&libraries=places`;
-      loadScript(url, document.querySelector("head"), "google-maps");
+      const loader = new Loader({
+        apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+        version: "weekly",
+      });
+      loader.importLibrary("places");
     }
     loaded.current = true;
   }
@@ -112,20 +116,19 @@ export const LocationSelector = (props: LocationSelectorProps) => {
   useEffect(() => {
     let active = true;
 
-    if (!autocompleteServiceRef.current && (window as any).google) {
-      autocompleteServiceRef.current = new (
-        window as any
-      ).google.maps.places.AutocompleteService();
+    if (!autocompleteServiceRef.current && google.maps.places) {
+      autocompleteServiceRef.current =
+        new google.maps.places.AutocompleteService();
     }
     if (!autocompleteServiceRef.current) {
       return undefined;
     }
-
-    if (!placesServiceRef.current && (window as any).google) {
-      placesServiceRef.current = new (
-        window as any
-      ).google.maps.places.PlacesService(
-        document.getElementById("google-places")
+    const divElement = document.getElementById(
+      "google-places"
+    ) as HTMLDivElement;
+    if (!placesServiceRef.current && google.maps.places) {
+      placesServiceRef.current = new google.maps.places.PlacesService(
+        divElement
       );
     }
     if (!placesServiceRef.current) {

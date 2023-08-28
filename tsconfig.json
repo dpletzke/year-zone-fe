@@ -22,6 +22,7 @@
     "types": [
       "vite/client",
       "vite-plugin-svgr/client",
+      "google.maps"
     ]
   },
   "include": [

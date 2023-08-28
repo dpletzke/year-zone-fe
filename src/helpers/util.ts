@@ -22,22 +22,6 @@ export const removeTime = (date = new Date()) => {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 };
 
-export const loadScript = (
-  src: string,
-  position: HTMLElement | null,
-  id: string
-) => {
-  if (!position) {
-    return;
-  }
-
-  const script = document.createElement("script");
-  script.setAttribute("async", "");
-  script.setAttribute("id", id);
-  script.src = src;
-  position.appendChild(script);
-};
-
 export const pluralize = (count: number | undefined, word: string) => {
   if (count === undefined) return "";
   return `${count} ${count === 1 ? word : `${word}s`}`;
