@@ -9,7 +9,6 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import parse from "autosuggest-highlight/parse";
 import throttle from "lodash/throttle";
-import { loadScript } from "../helpers/util";
 import { PlaceType } from "../types";
 
 const RenderOption = (props: { [key: string]: any; option: PlaceType }) => {
