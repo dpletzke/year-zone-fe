@@ -5,43 +5,7 @@ import "../style.css";
 import { defineColorClasses, getClassOffsetMap } from "../helpers/colorUtils";
 import { assertType } from "../helpers/util";
 import { useCallback } from "react";
-
-const Legend = ({
-  classOffsetMap,
-}: {
-  classOffsetMap: Map<number, string>;
-}) => {
-  const classNames = Array.from(classOffsetMap.values());
-  const classOffsets = Array.from(classOffsetMap.keys());
-
-  return (
-    <div
-      style={{
-        display: "flex",
-        marginTop: "20px",
-        alignItems: "center",
-        gap: "5px",
-      }}
-    >
-      Workplace Time Difference:  
-      {classNames.map((className, index) => (
-        <div
-          key={index}
-          className={className}
-          style={{
-            textAlign: "center",
-            padding: "8px",
-            cursor: "pointer",
-            border: "1px solid rgba(185, 185, 185, 0.13)",
-            minWidth: "15px",
-          }}
-        >
-          {classOffsets[index]} hours
-        </div>
-      ))}
-    </div>
-  );
-};
+import { Legend } from "./Legend";
 
 type CalendarContainerProps = {
   homeTimezone: string;
@@ -52,7 +16,7 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
   const { ranges, homeTimezone } = props;
   const classOffsetMap = getClassOffsetMap(ranges);
   const colorClasses = defineColorClasses(classOffsetMap, homeTimezone, ranges);
-  
+
   const customClasses = useCallback(
     (day: Moment) => {
       const [className] =

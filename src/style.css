@@ -1,3 +1,10 @@
+:root {
+  --red: #eb1e4e;
+  --blue: #118ab2;
+  --black: #2e282a;
+  --yellow: #b88d00;
+}
+
 table.calendar {
   border-collapse: collapse;
 }
@@ -15,7 +22,7 @@ table.calendar thead th {
 }
 
 table.calendar thead th.bolder {
-  font-weight: bold; 
+  font-weight: bold;
 }
 
 table.calendar tbody {
@@ -26,9 +33,11 @@ table.calendar td {
   text-align: center;
   padding: 8px;
   cursor: pointer;
-  border: 1px solid rgba(185, 185, 185, 0.13);
+  outline: 1px solid rgba(185, 185, 185, 0.13);
+  outline-offset: -1px;
   background-color: white;
   min-width: 15px;
+  color: white;
 }
 
 table.calendar tr:last-child td {
@@ -40,6 +49,7 @@ table.calendar td.month-name {
   text-align: left;
   cursor: default;
   border-left: none;
+  color: var(--black);
 }
 
 table.calendar td.prev-month,
@@ -120,50 +130,35 @@ div.calendar-controls .today {
   text-transform: uppercase;
 } */
 
-:root {
-  --red: #eb1e4e;
-  --blue: #118ab2;
-  --black: #2e282a;
-  --yellow: #b88d00;
-}
 table.calendar td.first,
 .first {
   background-color: var(--red);
-  color: white;
 }
 
 table.calendar td.second,
 .second {
   background-color: var(--yellow);
-  color: white;
 }
 
 table.calendar td.third,
 .third {
   background-color: var(--blue);
-  color: white;
 }
 
-table.calendar td.first_second,
-.first_second {
+table.calendar td.first_second {
   background: linear-gradient(45deg, var(--red) 50%, var(--yellow) 50%);
-  color: white;
 }
 
-table.calendar td.second_first,
-.second_first {
+table.calendar td.second_first {
   background: linear-gradient(45deg, var(--yellow) 50%, var(--red) 50%);
-  color: white;
 }
 
-table.calendar td.second_third,
-.second_third {
+table.calendar td.second_third {
   background: linear-gradient(45deg, var(--yellow) 50%, var(--blue) 50%);
-  color: white;
 }
 
-table.calendar td.third_second,
-.third_second {
+table.calendar td.third_second {
   background: linear-gradient(45deg, var(--blue) 50%, var(--yellow) 50%);
-  color: white;
 }
+
+

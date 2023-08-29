@@ -1,17 +1,16 @@
+
 import moment, { Moment } from "moment-timezone";
 import { TzDate } from "../types";
 export type ClassRange = {
-  [key: string]: Moment[] | { start: Moment; end: Moment }[];
+  [key: string]: { start: Moment; end: Moment }[];
 };
-
-// const stringifyForCalendar = (date: Moment) => {
-//   return date.format("YYYY-MM-DD");
-// };
 
 export const getClassOffsetMap = (ranges?: TzDate[]): Map<number, string> => {
   const classes = ["first", "second", "third"];
   if (!ranges) return new Map();
   return ranges?.reduce((acc, { offset }) => {
+    // Creates a map of offset to class name
+    // e.g. { -7: "first", -8: "second", -9: "third" }
     if (!acc.has(offset)) {
       acc.set(offset, classes.shift());
     }
@@ -26,40 +25,37 @@ export const defineColorClasses = (
 ): ClassRange => {
   if (!ranges) return {};
   const colorRanges = ranges.reduce((acc, { offset, start }, i, arr) => {
-    const className = classOffsetMap.get(offset)!;
-    if (!acc.has(className)) {
-      acc.set(className, []);
-    }
+    const className = classOffsetMap.get(offset);
+    const prevClassName = classOffsetMap.get(ranges[i - 1]?.offset);
+
+    if (!className) return acc;
+
     const shiftStart = start
       ? start.clone().startOf("day").add(1, "day")
       : moment().subtract(1, "year").endOf("year").add(1, "day");
     const shiftEnd = ranges[i + 1]
       ? moment(ranges[i + 1].start).subtract(1, "day")
       : moment().add(1, "year").startOf("year").subtract(1, "day");
-    acc.get(className)!.push({
-      start: shiftStart,
-      end: shiftEnd,
-    });
+
+    if (!acc.has(className)) {
+      acc.set(className, [{ start: shiftStart, end: shiftEnd }]);
+    } else {
+      acc.get(className)!.push({
+        start: shiftStart,
+        end: shiftEnd,
+      });
+    }
+    
+    const transitionClass =
+      prevClassName === className ? className : `${prevClassName}_${className}`;
+
+    if (acc.has(transitionClass)) {
+      acc.get(transitionClass)!.push({ start: start!, end: shiftStart });
+    } else {
+      acc.set(transitionClass, [{ start: start!, end: shiftStart }]);
+    }
     return acc;
   }, new Map<string, { start: Moment; end: Moment }[]>());
 
-  const transitionDays = ranges.reduce((acc, { offset, start }, i) => {
-    const className = classOffsetMap.get(offset)!;
-    const prevClassName = classOffsetMap.get(ranges[i - 1]?.offset);
-    if (
-      prevClassName &&
-      className &&
-      acc.has(`${prevClassName}_${className}`)
-    ) {
-      acc.get(`${prevClassName}_${className}`)!.push(start!);
-    } else if (prevClassName && className) {
-      acc.set(`${prevClassName}_${className}`, [start!]);
-    }
-    return acc;
-  }, new Map<string, Moment[]>());
-
-  return {
-    ...Object.fromEntries(colorRanges.entries()),
-    ...Object.fromEntries(transitionDays.entries()),
-  };
+  return Object.fromEntries(colorRanges.entries());
 };
