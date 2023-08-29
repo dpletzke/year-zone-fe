@@ -76,13 +76,10 @@ export const LocationSelector = (props: LocationSelectorProps) => {
   );
 
   if (typeof window !== "undefined" && !loaded.current) {
-    if (!document.querySelector("#google-maps")) {
-      const loader = new Loader({
-        apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
-        version: "weekly",
-      });
-      loader.importLibrary("places");
-    }
+    new Loader({
+      apiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
+      version: "weekly",
+    }).importLibrary("places");
     loaded.current = true;
   }
 
