@@ -23,10 +23,6 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
         Object.entries(colorClasses).find(([, descrip]) => {
           if (moment.isMoment(descrip)) {
             return day.isSame(descrip, "day");
-          } else if (Array.isArray(descrip) && moment.isMoment(descrip[0])) {
-            assertType<Moment[]>(descrip);
-
-            return descrip.some((d) => day.isSame(d, "day"));
           } else if (Array.isArray(descrip)) {
             assertType<{ start: Moment; end: Moment }[]>(descrip);
             return descrip.some((d) =>
