@@ -138,10 +138,11 @@ const App = () => {
             customProps={{ sx: selectorStyle }}
           />
         </Box>
-        {status === DISPLAY && homeTimeZone && (
+        {status === DISPLAY && homeTimeZone && workTimeZone && (
           <CalendarContainer
             ranges={ranges}
-            homeTimezone={homeTimeZone?.timeZone}
+            homeTimezone={homeTimeZone}
+            workTimezone={workTimeZone}
           />
         )}
         {status === LOADING && (

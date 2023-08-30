@@ -1,21 +1,24 @@
+import { useCallback, useState } from "react";
 import moment, { Moment } from "moment-timezone";
+import { Popper } from "@mui/material";
 import { Calendar } from "react-yearly-calendar";
-import { TzDate } from "../types";
+import { Timezone, TzDate } from "../types";
 import "../style.css";
 import { defineColorClasses, getClassOffsetMap } from "../helpers/colorUtils";
 import { assertType } from "../helpers/util";
-import { useCallback } from "react";
 import { Legend } from "./Legend";
 
 type CalendarContainerProps = {
-  homeTimezone: string;
+  homeTimezone: Timezone;
+  workTimezone: Timezone;
   ranges?: TzDate[];
 };
 
 export const CalendarContainer = (props: CalendarContainerProps) => {
-  const { ranges, homeTimezone } = props;
+  const { ranges, homeTimezone, workTimezone } = props;
   const classOffsetMap = getClassOffsetMap(ranges);
-  const colorClasses = defineColorClasses(classOffsetMap, homeTimezone, ranges);
+  const colorClasses = defineColorClasses(classOffsetMap, homeTimezone.timeZone, ranges);
+  const [pickedDate, setPickedDate] = useState<Moment | null>(null);
 
   const customClasses = useCallback(
     (day: Moment) => {
@@ -36,6 +39,17 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
     [colorClasses]
   );
 
+  const onPickDate = useCallback((date: Moment) => {
+    const transitionDay = ranges?.find((range) =>
+      date.isSame(range.start, "day")
+    );
+    if (transitionDay) {
+      setPickedDate(transitionDay.start!);
+    }
+  }, []);
+
+  const anchorEl = pickedDate ? document.getElementById("calendar") : null;
+
   return (
     <section
       style={{
@@ -48,11 +62,26 @@ export const CalendarContainer = (props: CalendarContainerProps) => {
       <div id="calendar">
         <Calendar
           year={new Date().getFullYear()}
-          onPickDate={(date: Date) => alert(date)}
+          onPickDate={onPickDate}
           customClasses={customClasses}
           firstDayOfWeek={1}
         />
       </div>
+      <Popper id={"calendar"} open={Boolean(pickedDate)} anchorEl={anchorEl}>
+        {pickedDate && (
+          <div
+            style={{
+              padding: "10px",
+              backgroundColor: "white",
+              borderRadius: "5px",
+              boxShadow: "0px 0px 5px 0px rgba(0,0,0,0.75)",
+            }}
+          >
+            {moment.tz(pickedDate, workTimezone.timeZone).format("LLLL")}{" -- "}
+            {moment(pickedDate).format("LLLL")}{" "}
+          </div>
+        )}
+      </Popper>
       <Legend classOffsetMap={classOffsetMap} />
     </section>
   );
